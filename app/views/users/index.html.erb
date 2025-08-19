@@ -1,0 +1,16 @@
+<div class="container">
+
+<h1>All the users</h1>
+
+<% @users.each do |user| %>
+<div class="media text-muted pt-3">
+      <strong class="d-block text-gray-dark">
+       <img  alt="32x32" class="mr-2 rounded" style="width: 32px; height: 32px;" src="https://cdn-icons-png.flaticon.com/512/190/190673.png?w=360">
+          Name: <%= user.fullname  %>  <%= link_to "Send me a message", "#", class: "btn-primary"  %>
+
+      </strong>
+</div>
+<% end %>
+
+
+</div>

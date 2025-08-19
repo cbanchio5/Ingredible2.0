@@ -1,0 +1,224 @@
+<div class="container-fluid mt-4">
+  <!-- SEARCH BAR -->
+  <div class="search--bar--container mb-3">
+    <div class="search--bar position-relative">
+      <%= form_tag recipes_path, method: :get, :class => 'd-flex justify-content-start' do %>
+        <%= text_field_tag :query,
+        params[:query],
+        class: "form-control border--round--10 border-color-gray4  text-black bg-color-white py-2 text-gray1",
+        placeholder: "Search by recipe or ingredients..."
+      %>
+      <% if params[:query] || params[:difficulty] %>
+        <div class="position-absolute clear--search">
+          <%= link_to recipes_path, request.query_parameters.merge({difficulty: nil, query: nil}), remote: true do%>
+            <i class="far fa-times-circle"></i>
+          <% end %>
+        </div>
+      <% end %>
+        <%# <%= submit_tag "Search", class: "btn btn-primary mx-3 btn-sm text-white" %>
+        <%#= button_tag type: 'submit', class: "btn btn-primary btn-sm ms-3 text-white" do %>
+          <%#= image_tag "icon/filters.svg" %>
+        <%# end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="dropdown d-flex flex-row align-items-center">
+    <div class="small text-gray1 pe-1">Diffculty:</div>
+      <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        All
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><%= link_to 'easy', request.query_parameters.merge({difficulty: "easy"}), class: "dropdown-item" %></li>
+        <li><%= link_to 'medium', request.query_parameters.merge({difficulty: "medium"}), class: "dropdown-item" %></li>
+        <li><%= link_to 'hard', request.query_parameters.merge({difficulty: "hard"}), class: "dropdown-item" %></li>
+      </ul>
+    </div>
+  <!-- END SEARCH BAR -->
+  <!-- INDEX SEARCH RESULTS -->
+  <% if @search %>
+    <%# RESULT COUNT HEADER %>
+    <div class="header--result">
+      <h3 class="text-black"><%= @recipes.length  %> results...</h3>
+    </div>
+    <!--  CARDS LIST  -->
+    <ul div class="m-0 p-0 grid">
+      <% @recipes.each do |recipe| %>
+        <li div class="m-0 p-0 d-flex ">
+          <div class="card-global">
+            <!-- link container -->
+            <%= link_to recipe, class: "text-decoration-none" do %>
+              <!-- image+rating container -->
+              <div class="relative">
+                <%= cl_image_tag recipe.photo.key, class: "img-cover" %>
+                <!-- rating badge container -->
+                <div class="absolute top-0 justify-content-end z-20 d-flex w-full smaller pt-2 pe-2">
+                  <% rating = recipe.reviews.average(:rating).to_f.round(2) %>
+                  <div class="badge_rating d-flex text-black <%= 'inactive--div' unless rating.positive? %>">
+                    <%= image_tag "icon/rating-star.svg", class: "" %> <%= recipe.reviews.average(:rating).to_f.round(2)  %>
+                  </div>
+                <!-- rating badge container end -->
+                </div>
+              <!-- image+rating container end -->
+              <!-- info -->
+              <div class="small bold text-gray1 text-center mt-3"><%= recipe.name%></div>
+              <!-- justify content between time and bookmark -->
+              <div class=" d-flex justify-content-between align-items-center mt-3 pb-3 px-2">
+                <!-- info time -->
+                <div class="global_time smaller text-gray3">
+                  Time <br>
+                  <span class="bold text-gray1"> <%= recipe.time %></span>
+                </div>
+                <!-- info time end -->
+                <!-- bookmark toggle -->
+                <div class="d-flex h-full global_bookmark">
+                  <% favourite = Favourite.find_by(user:current_user, recipe:recipe)  %>
+                  <%if favourite %>
+                    <%= link_to user_favourite_path(current_user, favourite), method: :delete, remote: true do%>
+                      <%= image_tag "icon/bookmark-active.svg", class: "icon" %>
+                    <% end %>
+                  <% else %>
+                    <%= link_to recipe_favourites_path(recipe), class: "icon_button", remote: true, method: :post do %>
+                      <%= image_tag "icon/bookmark.svg", class: "icon" %>
+                    <% end %>
+                  <% end %>
+                </div>
+                <!-- bookmark toggle end -->
+              </div>
+              <!-- justify content between time and bookmark end -->
+            <%end%>
+            <!-- link container end -->
+          </div>
+        </li>
+      <%end%>
+    </ul>
+      <!-- END CARDS LIST -->
+      <!-- END INDEX SEARCH RESULTS -->
+      <!-- INDEX  -->
+    <% else %>
+      <!-- CAROUSEL CARDS -->
+      <div class="row flex-row flex-nowrap overflow-scroll hide-scrollbar">
+        <% @recipes.first(6).each do |recipe| %>
+          <div class="col-6 col-sm-4 ">
+            <div class="card-slider relative w-full">
+              <!-- link container -->
+              <%= link_to recipe, class: "text-decoration-none" do %>
+                <!-- image+rating container -->
+                <div class="relative">
+                  <%= cl_image_tag recipe.photo.key, class: "img-cover" %>
+                  <!-- rating badge container -->
+                  <div class="absolute top-0 justify-content-end z-20 d-flex w-full smaller pt-2 pe-2">
+                  <% rating = recipe.reviews.average(:rating).to_f.round(2) %>
+                    <div class="badge_rating d-flex text-black <%= 'inactive--div' unless rating.positive? %>">
+                      <%= image_tag "icon/rating-star.svg" %> <%= recipe.reviews.average(:rating).to_f.round(2)  %>
+                    </div>
+                  </div>
+                  <!-- rating badge container end -->
+                </div>
+                <!-- image+rating container end -->
+                <!-- info -->
+                <div class="small bold text-gray1 text-center mt-3"><%= recipe.name%></div>
+                <!-- justify content between time and bookmark -->
+                <div class=" d-flex justify-content-between align-items-center mt-3 pb-3 px-2">
+                  <!-- info time -->
+                  <div class="global_time smaller text-gray3">
+                    Time <br>
+                    <span class="bold text-gray1"> <%= recipe.time %></span>
+                  </div>
+                  <!-- info time end -->
+                  <!-- bookmark toggle -->
+                  <div class="d-flex h-full global_bookmark">
+                    <% favourite = Favourite.find_by(user:current_user, recipe:recipe)  %>
+                    <%if favourite %>
+                      <%= link_to user_favourite_path(current_user, favourite), class: "icon_button", remote: true, method: :delete do%>
+                        <%= image_tag "icon/bookmark-active.svg", class: "icon" %>
+                      <% end %>
+                    <% else %>
+                      <%= link_to recipe_favourites_path(recipe), class: "icon_button", remote: true, method: :post do %>
+                        <%= image_tag "icon/bookmark.svg", class: "icon" %>
+                      <% end %>
+                    <% end %>
+                  </div>
+                  <!-- bookmark toggle end -->
+                </div>
+                <!-- justify content between time and bookmark end -->
+              <%end%>
+              <!-- link container end -->
+            </div>
+          </div>
+        <%end%>
+      </div>
+      <!-- END CAROUSEL CARDS -->
+      <!-- RECIPES RECOMMENDATIONS -->
+      <h1 class="normal bold text-black mt-3">5 recipes to make this week </h1>
+      <div class="row flex-row flex-nowrap overflow-scroll hide-scrollbar">
+        <% @recipes2.sample(6).each do |recipe| %>
+          <div class="col-12 col-lg-6 ">
+            <div class="card-slider relative w-full">
+              <!-- link container -->
+              <%= link_to recipe, class: "text-decoration-none" do %>
+                <!-- image+rating container -->
+                <div class="relative">
+                  <%= cl_image_tag recipe.photo.key, class: "img-cover gradient--image" %>
+                  <!-- rating badge container -->
+                  <div class="absolute top-0 justify-content-end z-20 d-flex w-full smaller pt-2 pe-2">
+                    <% rating = recipe.reviews.average(:rating).to_f.round(2) %>
+                    <div class="badge_rating d-flex text-black <%= 'inactive--div' unless rating.positive? %>">
+                      <%= image_tag "icon/rating-star.svg" %> <%= recipe.reviews.average(:rating).to_f.round(2)  %>
+                    </div>
+                  </div>
+                  <!-- rating badge container end -->
+                </div>
+                <!-- image+rating container end -->
+                <!-- info -->
+                <div class="small bold text-gray1 text-center mt-3"><%= recipe.name%></div>
+                <!-- justify content between time and bookmark -->
+                <div class=" d-flex justify-content-between align-items-center mt-3 pb-3 px-2">
+                  <!-- info time -->
+                  <div class="global_time smaller text-gray3">
+                    Time <br>
+                    <span class="bold text-gray1"> <%= recipe.time %></span>
+                  </div>
+                  <!-- info time end -->
+                  <!-- bookmark toggle -->
+                  <div class="d-flex h-full global_bookmark">
+                    <% favourite = Favourite.find_by(user:current_user, recipe:recipe)  %>
+                    <%if favourite %>
+                      <%= link_to user_favourite_path(current_user, favourite), class: "icon_button", remote: true, method: :delete do%>
+                        <%= image_tag "icon/bookmark-active.svg", class: "icon" %>
+                      <% end %>
+                    <% else %>
+                      <%= link_to recipe_favourites_path(recipe), class: "icon_button", remote: true, method: :post do %>
+                        <%= image_tag "icon/bookmark.svg", class: "icon" %>
+                      <% end %>
+                    <% end %>
+                  </div>
+                  <!-- bookmark toggle end -->
+                </div>
+                <!-- justify content between time and bookmark end -->
+              <%end%>
+              <!-- link container end -->
+            </div>
+          </div>
+        <%end%>
+      </div>
+      <!-- END RECIPES RECOMMENDATIONS -->
+      <!-- COMMUNITITES FOR YOU -->
+      <div class="container-fluid mt-4 px-0">
+        <h2 class="normal bold text-black">Communities for you</h2>
+        <div class="row flex-row flex-nowrap overflow-scroll hide-scrollbar">
+          <% @communities.first(5).each do |community|  %>
+            <div class="col-6 col-sm-4 col-lg-3 community--slider">
+              <div class="card-slider relative w-full community--slider mb-3 community-index-card">
+                <%= cl_image_tag community.photo.key, class: "img-cover gradient--image" %>
+                <%= link_to community, class: "text-decoration-none" do %>
+                  <div class="small bold text-gray1 text-center bg-color-primary2 text-white"><%= community.name%></div>
+                <%end%>
+              </div>
+            </div>
+          <%end%>
+        </div>
+      </div>
+      <!-- END COMMUNITITES FOR YOU -->
+    <% end %>
+    <!-- END INDEX  -->
+  </div>

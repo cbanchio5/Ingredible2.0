@@ -1,0 +1,52 @@
+
+<div class="container">
+  <h1 class="text-black mt-3 letter--space">Your Favorites!</h1>
+   <% if @favourites.length === 0 %>
+    <h3 class="text-gray3 letter--space">You don't have any recipes added to your favorites yet.</h3>
+      <h4 class="text-gray3 letter--space">We think you might like these</h4>
+       <div class="container--favorite my-4">
+        <% @recipes.each do |recipe| %>
+         <div class="card--favorite m-3" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.8)), url('<%= cl_image_path recipe.photo.key, height: 300 %>')">
+            <div class="title--card">
+              <div class="bookmark mx-3">
+                <%= link_to recipe_favourites_path(recipe), class: "icon_button", remote: true, method: :post do %>
+                  <%= image_tag "icon/bookmark.svg", class: "icon" %>
+                <% end %>
+              </div>
+              <% rating = recipe.reviews.average(:rating).to_f.round(2) %>
+              <div class="badge_rating d-flex text-black m-2 <%= 'inactive--div' unless rating.positive? %>">
+                <%= image_tag "icon/rating-star.svg" %> <%= recipe.reviews.average(:rating).to_f.round(2)  %>
+              </div>
+            </div>
+            <div class="card--favorite--data">
+
+              <h3 class="text-white favorite--title m-3"><%= recipe.name  %></h3>
+              <p class="m-3"><i class="fas fa-clock"></i> <%= recipe.time  %></p>
+            </div>
+          </div>
+        <% end %>
+    <% else %>
+      <div class="container--favorite my-4">
+          <% @favourites.each do |favorite| %>
+            <div class="card--favorite m-3" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.8)), url('<%= cl_image_path favorite.recipe.photo.key, height: 300 %>')">
+              <div class="title--card">
+                <div class="bookmark mx-3">
+                  <%= link_to user_favourite_path(current_user.id, favorite.id), class: "icon_button", method: :delete, remote: true do%>
+                    <%= image_tag "icon/bookmark-active.svg", class: "icon" %>
+                  <% end %>
+                </div>
+                <div class="badge_rating d-flex text-black m-2">
+                 <%= image_tag "icon/rating-star.svg" %> <%= favorite.recipe.reviews.average(:rating).to_f.round(2)  %>
+                </div>
+              </div>
+              <div class="card--favorite--data">
+                <%= link_to recipe_path(favorite.recipe), class:"text-decoration-none" do%>
+                  <h3 class="text-white favorite--title m-3"><%= favorite.recipe.name  %></h3>
+                <% end %>
+                <p class="m-3"><i class="fas fa-clock"></i> <%= favorite.recipe.time  %></p>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+</div>

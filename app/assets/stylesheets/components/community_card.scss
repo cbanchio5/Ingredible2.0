@@ -1,0 +1,91 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+
+.community--container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1200px;
+  margin-block: 2rem;
+  gap: 2rem;
+  color: $black;
+}
+
+.community--card_header img {
+  max-width: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: bottom;
+  height: 200px;
+
+}
+
+.community--card {
+  display: flex;
+  flex-direction: column;
+  width: clamp(20rem, calc(20rem + 2vw), 22rem);
+  overflow: hidden;
+  box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.3);
+  border-radius: 1em;
+  background: $gray5;
+  // background: linear-gradient(to right, $primary3, $gray5);
+
+}
+
+
+
+.community--card__body {
+  padding: 0.7rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+
+.community--card__body h4 {
+  font-size: 1rem;
+  text-transform: capitalize;
+}
+
+.community--card__footer {
+  display: flex;
+  padding: 0.5rem;
+  margin-top: auto;
+}
+
+
+// ON RECIPE  INDEX
+
+.community-index-card img {
+  height: 200px;
+}
+
+
+
+@media screen and (min-width: 800px) {
+  // this css will only be used when the screen size is min 800px
+  .community--card_header img {
+    max-width: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: bottom;
+    height: 300px;
+
+  }
+  .community--card__body h4 {
+    font-size: 1.5rem;
+    text-transform: capitalize;
+  }
+  .community--card__footer {
+    display: flex;
+    padding: 1rem;
+    margin-top: auto;
+  }
+
+  }

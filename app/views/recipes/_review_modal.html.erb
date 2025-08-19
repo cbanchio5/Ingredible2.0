@@ -1,0 +1,68 @@
+  <%# ###MODALS %>
+  <div class="modal--review container sign-in mt-5" data-controller="demo">
+    <%# ###REVIEW MODAL %>
+    <div class="modal" data-demo-target="modal" data-controller="modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="fw-semibold fs-2">Leave  review</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-action="click->modal#close" ></button>
+          </div>
+          <div class="modal-body p-5">
+            <div class="" data-controller="rating">
+              <%= simple_form_for [ @recipe, @review ] do |f| %>
+                <%= f.input :content, input_html: { class: "gray-border-rounded"} %>
+                <%= f.input :rating, as: :hidden,  input_html: { class: "gray-border-rounded", data: { 'rating-target': 'rating' }}, wrapper_html: { class: 'js-linked' } %>
+                <br>
+                <label class="mb-2">Rating</label>
+                <div class="rating d-flex align-item-center" >
+                  <label>
+                    <input type="radio" name="stars" value="1" data-action="click->rating#getValue1" data-rating-target="link1"/>
+                    <span class="icon">★</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="stars" value="2" data-action="click->rating#getValue2" data-rating-target="link2"/>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="stars" value="3" data-action="click->rating#getValue3" data-rating-target="link3"/>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="stars" value="4" data-action="click->rating#getValue4" data-rating-target="link4"/>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="stars" value="5" data-action="click->rating#getValue5" data-rating-target="link5"/>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                  </label>
+                </div>
+                <hr>
+              <%= f.submit "Submit review", class: "btn btn-primary" %>
+            <% end %>
+           </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%# END OF REVIEW MODAL %>
+      <%# CTA BUTTONS %>
+
+    <%= button_to '#', class:"small text-primary1 border-0 bg-color-white", :data => {  :action => 'demo#launchDemo' } do %>
+      <%= image_tag "icon/message.svg", class: "icon" %>
+          Leave a review
+      <% end %>
+    <%# link_to "Profile", profile_path(@profile.id, param1: 'value1', param2: 'value2'), method: :post %>
+</div>
+<%# ### END MODALS %>

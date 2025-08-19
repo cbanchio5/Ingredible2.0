@@ -1,0 +1,48 @@
+// ICON BUTTON
+.icon_button {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 4px;
+  background: $white;
+  border-radius: 30px;
+}
+
+// Primary button
+.btn-primary {
+  font-weight: 600!important;
+  font-size: 16px;
+  line-height: 24px;
+  color: $white;
+  background-color: $primary1;
+  border-color: $primary1;
+  border-radius: 10px;
+  padding: 15px 50px;
+}
+
+.action--buttons {
+ display:flex;
+ flex-direction: column;
+ width:100%;
+}
+.action--buttons input {
+  width:90%;
+}
+
+.btn-sm {
+  padding: 4px 8px;
+}
+
+
+@media screen and (min-width: 800px) {
+  // this css will only be used when the screen size is min 800px
+  .action--buttons {
+    display:flex;
+    width:50%;
+    justify-content:center;
+    flex-direction: row;
+    align-items: center;
+   }
+
+  }

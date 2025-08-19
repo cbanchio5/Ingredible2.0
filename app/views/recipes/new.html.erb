@@ -1,0 +1,37 @@
+<div class="container sign-in mt-5">
+  <div class="header--section mb-5">
+    <h2 class="fw-semibold fs-1">Create a recipe</h2>
+      <h3 class="fs-6">Let's create a recipe!</h3>
+  </div>
+
+  <%= simple_form_for(@recipe) do |f| %>
+    <div class="form-inputs">
+      <%= f.error_notification %>
+      <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+      <div class="form-inputs">
+        <%= f.input :name, input_html: { class: "gray-border-rounded"},
+         :label_html => { :class => 'fs-6' } %>
+        <%= f.input :ingredients, input_html: { class: "gray-border-rounded"},
+         :label_html => { :class => 'fs-6' } %>
+        <%= f.input :difficulty, input_html: { class: "gray-border-rounded"},
+         :label_html => { :class => 'fs-6' } %>
+        <%= f.input :time, input_html: { class: "gray-border-rounded"},
+         :label_html => { :class => 'fs-6' } %>
+        <%= f.input :steps, input_html: { class: "gray-border-rounded"},
+         :label_html => { :class => 'fs-6' } %>
+        <%= f.input :serves, input_html: { class: "gray-border-rounded"},
+         :label_html => { :class => 'fs-6' } %>
+        <%= f.input :category, input_html: { class: "gray-border-rounded"},
+          :label_html => { :class => 'fs-6' } %>
+        <%= f.input :photo, as: :file, input_html: { multiple: false, class: "gray-border-rounded" }, :label_html => { :class => 'fs-6' } %>
+      </div>
+    </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, class: "btn btn-primary mt-3 mb-3 text-white w-100 p-3" %>
+      </div>
+  <% end %>
+
+
+</div>

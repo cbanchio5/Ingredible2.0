@@ -1,0 +1,46 @@
+.navbar-lewagon {
+  justify-content: space-between;
+  background: $primary1;
+}
+
+.navbar-lewagon .navbar-collapse {
+  flex-grow: 0;
+}
+
+.navbar-lewagon .navbar-brand img {
+  height: 48px;
+}
+.navbar {
+  background-color:  $primary1;
+  z-index: 2;
+}
+
+.sign-in-button {
+  background-color: $primary;
+  color: rgba(220, 220, 220, 1);
+  font-weight: 400;
+  border-radius: 15%;
+}
+
+.sign-in-button:hover{
+  background-color: #4838383f;
+  color: rgba(220, 220, 220, 1);
+}
+
+.navbar-toggler {
+  border: none;
+  padding-right: 0;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+.navbar-brand {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.nav-link {
+  color: $primary4;
+}

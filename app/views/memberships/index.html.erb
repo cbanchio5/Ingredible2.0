@@ -1,0 +1,19 @@
+<div class="container">
+  <h1 class="text-black mt-3 letter--space">My Memberships</h1>
+      <div class="container--favorite my-4">
+      <% if @memberships.length === 0 %>
+        <h3 class="text-black">You have not joined any community yet, what are you waiting for?</h3>
+      <% else %>
+        <% @memberships.each do |membership| %>
+          <%= link_to  community_messages_path(membership.community.id),  class: "text-decoration-none" do%>
+            <div class="card--favorite m-3" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.8)), url('<%= cl_image_path membership.community.photo.key, height: 300 %>')">
+              <div class="card--favorite--data">
+                <h3 class="text-white favorite--title m-3 "><%= membership.community.name  %></h3>
+                 <%= image_tag "ingredible-logos/ingredible-logos_black_only_face.png", alt: "…", width: "200", height: "auto", class: "opacity-10" %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+        <% end %>
+      </div>
+</div>

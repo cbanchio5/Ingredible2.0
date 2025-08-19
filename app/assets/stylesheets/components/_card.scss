@@ -1,0 +1,32 @@
+// Card slider
+
+.card-slider {
+  overflow: hidden;
+  background: $gray5;
+  border-radius: 12px;
+  flex: 1 1 auto;
+  position: relative;
+  width: 185px;
+}
+
+.card-community-slider {
+  overflow: hidden;
+  background: $gray5;
+  border-radius: 12px;
+  flex: 1 1 auto;
+  position: relative;
+  width: 185px;
+  height: 185px;
+}
+.img-square {
+  width: 185px;
+  height: 185px;
+  overflow: hidden;
+}
+
+.card-global {
+  background: $gray5;
+  border-radius: 12px;
+  overflow: hidden;
+
+}

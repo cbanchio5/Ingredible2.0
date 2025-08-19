@@ -1,0 +1,39 @@
+<div class="container">
+  <h1 class= "text-black mt-3" >Reviews</h1>
+
+  <% if @reviews.length === 0 %>
+    <h4 class="text-gray3 letter--space">No reviews yet for this recipe</h4>
+  <% else %>
+    <% @reviews.each do |review| %>
+          <div class="comment mt-3">
+            <div class="comment-heading">
+              <% if review.user.photo.attached? %>
+                <%= cl_image_tag review.user.photo.key , class: "mr-2 rounded", 'aria-haspopup': true, 'aria-expanded': false, size: "32x32" %>
+              <% else %>
+                <%= image_tag "https://cdn-icons-png.flaticon.com/512/190/190673.png?w=360", class: "mr-2 rounded", 'aria-haspopup': true, 'aria-expanded': false, size: "32x32" %>
+              <% end %>
+              <div class="comment-info">
+                <p><strong><%= review.user.fullname%> </strong> <%= review.created_at.strftime("%d/%m/%Y") %></p>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="comment-body text-black mx-5">
+            <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                <%= review.content %>
+                <%= ("⭐️" * review.rating )  %>
+            </p>
+            <% if policy(review).destroy?%>
+              <%= link_to  recipe_review_path(@recipe, review), class:"danger-text mx-2", method: :delete, remote: true do %>
+                <i class="fas fa-times"></i>
+              <% end %>
+            <% end %>
+          </div>
+
+      <% end %>
+    <% end %>
+    <div class="mb-4">
+    <%= render partial: "recipes/review_modal", locals: {  } %>
+  </div>
+</div>

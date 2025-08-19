@@ -1,0 +1,39 @@
+// Specific CSS for your home-page menu
+
+.body-home {
+  height: 100vh;
+  background-image:linear-gradient(179.98deg, rgba(0, 0, 0, 0.2) 0.01%, rgba(0, 0, 0, 0.6) 99.99%), asset-url('background-images/ingredients-1.jpeg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.home--navbar .navbar{
+  background-color: $primary;
+}
+
+
+.logo-image img{
+  width: 190px;
+}
+
+.section--1 {
+  height: 75%;
+}
+
+
+
+
+
+// DESKTOP RULES
+
+@media screen and (min-width: 800px) {
+  // this css will only be used when the screen size is min 800px
+  .section--1{
+    height: 40%;
+
+  }
+
+
+
+}

@@ -1,0 +1,51 @@
+.blog--header{
+  height: 350px;
+  width:auto;
+  margin:0;
+  background-repeat: no-repeat, repeat;
+  background-size: auto;
+  display:flex;
+  justify-content: center;
+}
+
+.title--header {
+  font-size: 3.5rem
+}
+
+.comment-heading {
+  display: flex;
+  align-items: center;
+
+  font-size: 14px;
+}
+
+.comment-info {
+  color: rgba(0, 0, 0, 0.5);
+  margin-left: 10px;
+}
+
+.comment-body {
+  display:flex;
+  justify-content: flex-start;
+}
+
+.message--form textarea {
+  flex-grow: 4;
+}
+
+
+.message--form {
+  display:flex;
+  align-items: flex-end;
+
+}
+
+
+@media screen and (min-width: 800px) {
+  // this css will only be used when the screen size is min 800px
+
+.message-form {
+  width:50%;
+}
+
+  }

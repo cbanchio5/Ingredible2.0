@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ingredible</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+    <%= favicon_link_tag asset_path('favicon.ico') %>
+
+    <%= javascript_include_tag "application", type: "module", defer: true %>
+  </head>
+
+  <body>
+  <!-- app/views/layouts/application.html.erb -->
+    <%= render 'shared/navbar' %>
+    <%= yield %>
+    <%= render 'shared/footer' %>
+  </body>
+</html>

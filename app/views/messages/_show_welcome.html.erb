@@ -1,0 +1,27 @@
+<div class="comment mt-3">
+  <div class="comment-heading">
+    <% if message.user.photo.attached? %>
+      <%= cl_image_tag message.user.photo.key , class: "mr-2 rounded", 'aria-haspopup': true, 'aria-expanded': false, size: "32x32" %>
+    <% else %>
+      <%= image_tag "https://cdn-icons-png.flaticon.com/512/190/190673.png?w=360", class: "mr-2 rounded", 'aria-haspopup': true, 'aria-expanded': false, size: "32x32" %>
+    <% end %>
+    <div class="comment-info">
+      <%# <img  class="mr-2 rounded" style="width: 32px; height: 32px;" src="https://cdn-icons-png.flaticon.com/512/190/190673.png?w=360"> %>
+      <% if (((message.created_at - DateTime.now)/(60*60*24)).abs.to_f.ceil) == 1 %>
+          <p><strong><%= message.user.fullname%> </strong> <%= ((message.created_at - DateTime.now)/(60*60)).abs.to_i%> hours ago </p>
+      <% elsif ((message.created_at - DateTime.now)/(60*60*24)).abs.to_f.ceil < 4  %>
+          <p><strong><%= message.user.fullname%> </strong> <%= ((message.created_at - DateTime.now)/(60*60*24)).abs.to_i%> days ago </p>
+      <% else %>
+          <p><strong><%= message.user.fullname%> </strong> <%= message.created_at.strftime("%d/%m/%Y") %></p>
+      <% end %>
+    </div>
+  </div>
+
+</div>
+
+<div class="comment-body text-black mx-5">
+  <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+      <%= message.content %>
+  </p>
+
+</div>

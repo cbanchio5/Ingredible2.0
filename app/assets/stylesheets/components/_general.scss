@@ -1,0 +1,231 @@
+
+// POSITION
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
+
+// WIDTH
+.w-full {
+  width: 100%;
+}
+
+// HEIGHT
+.h-full {
+  height: 100%;
+}
+
+// Z-INDEX
+.z-20 {
+  z-index: 20;
+}
+
+// BOTTOM
+.bottom-0 {
+  bottom: 0;
+}
+
+// TOP
+.top-0 {
+  top: 0;
+}
+
+
+
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+// TEXT COLOR
+.text-black {
+  color: $black;
+}
+
+.text-gray1 {
+  color: $gray1;
+}
+
+.text-gray2 {
+  color: $gray2;
+}
+
+.text-gray3 {
+  color: $gray3;
+}
+.text-white {
+  color: $white;
+}
+
+.text-primary1 {
+  color: $primary1;
+}
+// BG COLOR
+.bg-color-primary5 {
+  background-color: $primary5;
+}
+
+.bg-color-primary2 {
+  background-color: $primary2;
+}
+.bg-color-primary3 {
+  background-color: $primary3;
+}
+
+.bg-color-white {
+  background-color: $white;
+}
+
+//ERROR TEXT COLOR
+.danger-text {
+  color: $red;
+}
+
+// BORDER COLOR
+.border-color-gray4 {
+  border-color: $gray4;
+}
+
+.border-color-gray5 {
+  border-color: $gray5;
+}
+
+
+// IMAGE STYLE COVER
+.img-cover {
+  width: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+.inactive--div {
+  display:none!important;
+}
+
+.img-300 {
+  height:300px;
+}
+
+.img-180 {
+  height:180px;
+}
+
+.img-fill {
+  object-fit: fill;
+}
+
+.aspect-landscape {
+  aspect-ratio: 4/3;
+}
+.opacity-50 {
+  opacity: 0,5;
+}
+
+.gradient--image {
+  background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.8));
+}
+
+.gradient--image-primary {
+  background-image: linear-gradient(rgba(113,177,161,1), rgba(246,250,249,0.8));
+}
+
+.adaptable--size{
+  width:100%;
+}
+
+// Radius
+
+.border--round {
+  border-radius: 20px;
+}
+
+.border--round--10 {
+  border-radius: 10px;
+}
+
+
+
+.letter--space {
+  letter-spacing: -0.05em;
+}
+
+.decoration--none {
+  text-decoration: none;
+}
+
+.clear--search {
+  right: 10px!important;
+  padding-top: 8px;
+}
+
+
+// GRID
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  row-gap: 1.5rem;
+  column-gap: 0.75rem;
+}
+
+.show--image {
+  height: auto;
+  width: 250px;
+}
+
+.opacity-10 {
+  opacity: 0.1;
+}
+
+
+@keyframes disappearAnimation{
+  0%{
+    opacity: 1;
+
+  }
+  50%{
+    opacity: 0.5;
+
+  }
+  100%{
+    display: none;
+    opacity: 0;
+
+  }
+}
+
+@media screen and (min-width: 800px) {
+  // this css will only be used when the screen size is min 800px
+  .adaptable--size {
+    width:50%;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .img-300 {
+    height:400px;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .hide-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  .grid {
+    grid-template-columns: repeat(4,minmax(0,1fr));
+  }
+  .show--image {
+    height: auto;
+    width: 450px;
+  }
+
+
+  }

@@ -1,0 +1,47 @@
+<div class="sign-in m-5" data-controller="rating">
+  <h3 class="p-2">Leave a review</h3>
+  <%= simple_form_for [ @recipe, @review ] do |f| %>
+    <%= f.input :content, input_html: { class: "gray-border-rounded"} %>
+    <%= f.input :rating, as: :hidden,  input_html: { class: "gray-border-rounded", data: { 'rating-target': 'rating' }}, wrapper_html: { class: 'js-linked' } %>
+    <br>
+    <label class="mb-2">Rating</label>
+    <div class="rating d-flex align-item-center" >
+      <label>
+        <input type="radio" name="stars" value="1" data-action="click->rating#getValue1" data-rating-target="link1"/>
+        <span class="icon">★</span>
+      </label>
+      <label>
+        <input type="radio" name="stars" value="2" data-action="click->rating#getValue2" data-rating-target="link2"/>
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+      </label>
+      <label>
+        <input type="radio" name="stars" value="3" data-action="click->rating#getValue3" data-rating-target="link3"/>
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+      </label>
+      <label>
+        <input type="radio" name="stars" value="4" data-action="click->rating#getValue4" data-rating-target="link4"/>
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+      </label>
+      <label>
+        <input type="radio" name="stars" value="5" data-action="click->rating#getValue5" data-rating-target="link5"/>
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+      </label>
+    </div>
+    <hr>
+    <%= f.submit "Submit review", class: "btn btn-primary" %>
+  <% end %>
+
+
+
+
+</div>

@@ -1,0 +1,22 @@
+<div class="section--1 px-2 pt-5 mt-3 d-flex flex-column align-items-center justify-content-around">
+  <div class="catch-frase d-flex flex-column align-items-center">
+    <div class="logo-image">
+      <%= image_tag "ingredible-logos/ingredible-icon.png" %>
+    </div>
+    <div class="mb-2">
+      <h3 class="title bold text-center">ingredible</h3>
+    </div>
+    <% if user_signed_in? %>
+      <div class="normal">
+        Welcome <%= current_user.fullname %>!
+      </div>
+    <% else %>
+      <div class="normal text-center mb-5">
+        Simple way to find Tasty Recipe
+      </div>
+    <%end  %>
+  </div>
+  <div class="btn btn-primary ">
+    <%= link_to "Browse recipes", recipes_path, class: "normal bold text-white text-decoration-none" %><%= image_tag "icon/arrow-right.svg" %>
+  </div>
+</div>

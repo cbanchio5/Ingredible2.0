@@ -1,0 +1,18 @@
+<div class="container">
+  <h1 class="text-black mt-3 letter--space">Our communities!</h1>
+  <div class="community--container">
+    <% @communities.each  do |community|  %>
+      <div class="community--card">
+        <div class="community--card_header">
+          <%= link_to  community_messages_path(community), method: :get , class:"" do %>
+            <%= cl_image_tag community.photo.key, height: 300, width: 400, crop: :fill %>
+          <% end %>
+        </div>
+        <div class="community--card__body">
+          <h4 class= "fs-5 text"><%=  community.name %></h4>
+          <p class="fs-6 text text-gray2"><%= community.description.truncate(70)  %></p>
+        </div>
+      </div>
+    <% end%>
+  </div>
+</div>

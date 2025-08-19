@@ -1,0 +1,12 @@
+<div class="container sign-in mt-5">
+
+  <div class="form-inputs">
+    <%= simple_form_for @community do |f| %>
+      <%= f.input :name, input_html: { class: "gray-border-rounded" } %>
+      <%= f.input :description , input_html: { class: "gray-border-rounded" }%>
+  </div>
+  <div class="form-actions mt-3">
+      <%= f.button :submit, "Update",  class: "btn btn-primary mt-3 mb-3 text-white w-100 mb-5" %>
+    <% end %>
+  </div>
+</div>

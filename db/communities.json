@@ -1,0 +1,54 @@
+[
+  {
+    "name": "Vegans",
+    "description": "A place where vegans can share tips, tricks and recipes!",
+    "img": "app/assets/images/communities/vegan_community.jpg"
+  },
+  {
+    "name":"Fruitarian",
+    "description": "Do you like recipes with tons of fruits? If so, this place is for you!",
+    "img": "app/assets/images/communities/fruitarian_community.jpg"
+  },
+  {
+    "name":"Vegetarian",
+    "description": "Take your vegetarian dishes and skills to a whole new level!",
+    "img": "app/assets/images/communities/vegetarian_community.jpg"
+  },
+  {
+    "name":"Meat-lovers",
+    "description": "A dish with no meath is no dish!",
+    "img": "app/assets/images/communities/meat_lovers_community.jpg"
+  },
+  {
+    "name":"Pescatarian",
+    "description": "We, pescatarians are like vegetarians, except we DO eat fish. ",
+    "img": "app/assets/images/communities/pescatarian_community.jpg"
+  },
+  {
+    "name":"Paleotarian",
+    "description": "More commonly known as a Paleo diet, this consists of fresh fruits, vegetables and lean meats only. They do not consume gluten, grains, legumes, dairy, starchy vegetables ( like potatoes ), excessive carbs and processed foods.",
+    "img": "app/assets/images/communities/paleotarian_community.jpg"
+  },
+  {
+    "name":"Ketogenic",
+    "description": "The Keto lifestyle is essentially known as the “low carb” diet, which aims to cut back the calories from sugar, soft drinks, pastries and white bread.  The idea is to consume 20-50g of carbs per day, and obtain protein from wholesome products such as seafood, non-starchy vegetables ( like kale & broccoli ), cheese, avocados, lean meats & poultry!",
+    "img": "app/assets/images/communities/ketogenic_community.jpg"
+  },
+  {
+    "name":"Flexitarian",
+    "description": "A flexitarian diet encourages a plant-based diet, however, it permits you to eat animal products ( like meat, eggs and dairy ) in moderation. It’s pretty much the ‘flexible’ version of a vegetarian or vegan diet – flexible… flexi…flexitarian…. geddit? 😜  So, if you’re trying out a plant-based lifestyle, this is an awesome place to start!",
+    "img": "app/assets/images/communities/flexitarian_community.jpg"
+  },
+  {
+    "name":"Beegan",
+    "description": "‘Beegan’ – sounds like a Walmart version of vegan hey?  Well, it’s actually the exact same as veganism, except you are allowed to eat honey! This was allegedly derived from a movement to promote beekeepers (because roughly 33% of food we consume relies on the pollination process!).",
+    "img": "app/assets/images/communities/beegan_community.jpg"
+  },
+  {
+    "name":"Raw Foodie",
+    "description": "Like veganism, the raw food diet is generally plant-based; consisting of fruits, vegetables, nuts and seeds.  Some people also consume raw eggs, dairy, raw fish and sometimes raw meat! ",
+    "img": "app/assets/images/communities/raw_foodie_community.jpg"
+  }
+
+
+]

@@ -1,0 +1,45 @@
+.card--favorite {
+  height: 250px;
+  width: auto;
+  display:flex;
+  border-radius: 20px;
+  justify-content: space-between;
+  background-size: cover;
+  flex-direction: column;
+  box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.6);
+  flex-direction: column;
+}
+
+.title--card {
+  display:flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.favorite--title{
+  font-size: 1.5rem;
+}
+
+.card--favorite--data {
+  display:flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.container--favorite {
+  display:grid;
+  grid-template-columns: 1fr;
+}
+
+
+
+@media screen and (min-width: 800px) {
+  // this css will only be used when the screen size is min 800px
+  .container--favorite {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+  }
+
+
+  }

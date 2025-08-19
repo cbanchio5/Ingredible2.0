@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ingredible</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <!-- Stylesheet -->
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+
+    <%= favicon_link_tag "favicon.ico" %>
+
+    <!-- JavaScript (importmap) -->
+    <%= javascript_include_tag "application", type: "module", "data-turbo-track": "reload" %>
+  </head>
+
+  <body class="body-home">
+    <div class="home--navbar">
+      <%= render 'shared/navbar' %>
+    </div>
+
+    <%= yield %>
+  </body>
+</html>

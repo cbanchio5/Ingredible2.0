@@ -1,0 +1,9 @@
+<div class="container">
+
+  <h1 class="text-gray3">My Communities</h1>
+
+  <% @memberships.each do |membership| %>
+  <p class="text-gray3"> <%= membership.community.name  %> </p>
+
+  <%end  %>
+</div>

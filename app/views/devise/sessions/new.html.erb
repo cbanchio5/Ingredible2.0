@@ -1,0 +1,45 @@
+<div class="container sign-in mt-5">
+  <div class="header--section mb-5">
+   <h2 class="fw-semibold fs-1">Hello,</h2>
+    <h3 class="fs-6">Welcome Back!</h3>
+  </div>
+
+
+  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="form-inputs">
+      <%= f.input :email,
+                  required: false,
+                  autofocus: true,
+                  input_html: { autocomplete: "email", class: "gray-border-rounded"},
+                  :label_html => { :class => 'fs-6' } %>
+      <%= f.input :password,
+                  required: false,
+                  input_html: { autocomplete: "current-password", class: "gray-border-rounded mb-1" },
+                  :label_html => { :class => 'fs-6' } %>
+      <%= link_to "Forgot your password?", new_password_path(resource_name), class: "small--text" %>
+      <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit, "Log in", class: "btn btn-primary mt-3 mb-3 text-white w-100" %>
+      <%# <%- if devise_mapping.omniauthable? %>
+      <%# <%- resource_class.omniauth_providers.each do |provider| %>
+        <%# <%= link_to  omniauth_authorize_path(resource_name, provider), method: :post do%>
+          <%# <%= image_tag "google_signin_buttons/web/1x/btn_google_signin_light_normal_web.png", class: "" %>
+        <%# <% end %>
+      <%# <% end %>
+    <%# <% end %>
+
+    </div>
+  <% end %>
+
+
+  <div class="sign-up--section my-3">
+    <h5 class="fs-6">Don't have an account? <%= link_to "Sign up", new_registration_path(resource_name) %></h5>
+
+  </div>
+
+
+
+
+</div>

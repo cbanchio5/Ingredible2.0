@@ -1,0 +1,41 @@
+<div class="card-global">
+  <%= link_to recipe, class: "text-decoration-none" do %>
+    <!-- IMAGE + RATING -->
+    <div class="relative">
+      <% if recipe.photo.attached? %>
+        <%= cl_image_tag(recipe.photo, class: "img-cover") %>
+      <% else %>
+        <%= cl_image_tag("placeholder", class: "img-cover") %>
+      <% end %>
+      <% rating = recipe.reviews.average(:rating)&.round(2) || 0 %>
+      <div class="absolute top-0 justify-content-end z-20 d-flex w-full smaller pt-2 pe-2">
+        <div class="badge_rating d-flex text-black <%= 'inactive--div' unless rating.positive? %>">
+          <%= image_tag "icon/rating-star.svg" %> <%= rating %>
+        </div>
+      </div>
+    </div>
+
+    <!-- INFO -->
+    <div class="small bold text-gray1 text-center mt-3"><%= recipe.name %></div>
+
+    <!-- TIME & BOOKMARK -->
+    <div class="d-flex justify-content-between align-items-center mt-3 pb-3 px-2">
+      <div class="global_time smaller text-gray3">
+        Time <br>
+        <span class="bold text-gray1"><%= recipe.time %></span>
+      </div>
+      <div class="d-flex h-full global_bookmark">
+        <% favourite = Favourite.find_by(user: current_user, recipe: recipe) %>
+        <% if favourite %>
+          <%= link_to user_favourite_path(current_user, favourite), method: :delete, remote: true do %>
+            <%= image_tag "icon/bookmark-active.svg", class: "icon" %>
+          <% end %>
+        <% else %>
+          <%= link_to recipe_favourites_path(recipe), method: :post, remote: true do %>
+            <%= image_tag "icon/bookmark.svg", class: "icon" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
