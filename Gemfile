@@ -48,7 +48,7 @@ gem 'turbo-rails'
 
 
 gem 'pundit'
-gem "sassc-rails"
+#gem "sassc-rails"
 gem "dotenv-rails"
 gem "cloudinary"
 

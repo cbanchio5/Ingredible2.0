@@ -9,8 +9,8 @@ Rails.application.configure do
   # Eager load code on boot for better performance and memory savings (ignored by Rake tasks).
   config.eager_load = true
 
-  config.assets.compile = false
-  config.assets.digest = true
+  #config.assets.compile = false
+  #config.assets.digest = true
 
 
   # Full error reports are disabled.
@@ -45,7 +45,7 @@ Rails.application.configure do
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
 
   # config/application.rb or production.rb
-  config.assets.paths << Rails.root.join("app", "assets", "custom").to_s
+  #config.assets.paths << Rails.root.join("app", "assets", "custom").to_s
 
 
   # Prevent health checks from clogging up the logs.
