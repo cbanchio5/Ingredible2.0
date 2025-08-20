@@ -1,7 +1,7 @@
 <div class="sign-in m-5" data-controller="rating">
   <h3 class="p-2">Leave a review</h3>
   <%= simple_form_for [ @recipe, @review ] do |f| %>
-    <%= f.input :content, input_html: { class: "gray-border-rounded"} %>
+    <%= f.input :body, input_html: { class: "gray-border-rounded"} %>
     <%= f.input :rating, as: :hidden,  input_html: { class: "gray-border-rounded", data: { 'rating-target': 'rating' }}, wrapper_html: { class: 'js-linked' } %>
     <br>
     <label class="mb-2">Rating</label>

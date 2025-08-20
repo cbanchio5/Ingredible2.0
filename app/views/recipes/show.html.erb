@@ -270,7 +270,7 @@
 
       <div class="comment-body text-gray1 ms-5">
         <p class="media-body pb-3 mb-0 small lh-125  d-flex">
-            <%= review.content %>
+            <%= review.body %>
 
             <%= ("⭐️" * review.rating )  %>
             <% if policy(review).destroy?%>

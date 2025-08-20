@@ -11,7 +11,7 @@
           <div class="modal-body p-5">
             <div class="" data-controller="rating">
               <%= simple_form_for [ @recipe, @review ] do |f| %>
-                <%= f.input :content, input_html: { class: "gray-border-rounded"} %>
+                <%= f.input :body, input_html: { class: "gray-border-rounded"} %>
                 <%= f.input :rating, as: :hidden,  input_html: { class: "gray-border-rounded", data: { 'rating-target': 'rating' }}, wrapper_html: { class: 'js-linked' } %>
                 <br>
                 <label class="mb-2">Rating</label>
