@@ -85,7 +85,4 @@ test:
 #
 production:
   <<: *default
-  database: rbnb_production
-  username: <%= ENV['RBNB_DB_USERNAME'] %>
-  password: <%= ENV['RBNB_DB_PASSWORD'] %>
-  host: <%= ENV['RBNB_DB_HOST'] %>
+  url: <%= ENV['DATABASE_URL'] %>
