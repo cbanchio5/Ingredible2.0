@@ -61,10 +61,12 @@ gem 'activerecord-session_store'
 gem "omniauth-rails_csrf_protection"
 
 gem 'simple_form', github: 'heartcombo/simple_form'
+gem "debug"
 
-group :development, :test do
+
+##group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+  ##gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
