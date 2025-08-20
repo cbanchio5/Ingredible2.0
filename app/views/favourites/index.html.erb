@@ -9,7 +9,9 @@
          <div class="card--favorite m-3" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.8)), url('<%= cl_image_path recipe.photo.key, height: 300 %>')">
             <div class="title--card">
               <div class="bookmark mx-3">
-                <%= link_to recipe_favourites_path(recipe), class: "icon_button", remote: true, method: :post do %>
+                <%= link_to recipe_favourites_path(recipe),
+                      data: { turbo_method: :post },
+                      title: "Add to favourites" do %>
                   <%= image_tag "icon/bookmark.svg", class: "icon" %>
                 <% end %>
               </div>
@@ -31,9 +33,11 @@
             <div class="card--favorite m-3" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.8)), url('<%= cl_image_path favorite.recipe.photo.key, height: 300 %>')">
               <div class="title--card">
                 <div class="bookmark mx-3">
-                  <%= link_to user_favourite_path(current_user.id, favorite.id), class: "icon_button", method: :delete, remote: true do%>
+                 <%= link_to user_favourite_path(current_user.id, favorite.id),
+                        data: { turbo_method: :delete },
+                        title: "Remove from favourites" do %>
                     <%= image_tag "icon/bookmark-active.svg", class: "icon" %>
-                  <% end %>
+                 <% end %>
                 </div>
                 <div class="badge_rating d-flex text-black m-2">
                  <%= image_tag "icon/rating-star.svg" %> <%= favorite.recipe.reviews.average(:rating).to_f.round(2)  %>
