@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: ingredible
+    env: ruby
+    plan: free
+    branch: main  # Change to your branch if needed
+    buildCommand: |
+      bundle install
+      yarn install
+      rails db:migrate
+    startCommand: bundle exec puma -C config/puma.rb
+    postDeployCommand: rails db:seed
