@@ -40,43 +40,36 @@
 
     <ul class="m-0 p-0 grid">
       <% @recipes.each do |recipe| %>
-        <li class="m-0 p-0 d-flex">
-          <div class="card-global">
-            <%= link_to recipe, class: "text-decoration-none" do %>
-              <div class="relative">
-                <%= cl_image_tag recipe.photo.key, class: "img-cover" %>
-                <div class="absolute top-0 justify-content-end z-20 d-flex w-full smaller pt-2 pe-2">
-                  <% rating = recipe.reviews.average(:rating).to_f.round(2) %>
-                  <div class="badge_rating d-flex text-black <%= 'inactive--div' unless rating.positive? %>">
-                    <%= image_tag "icon/rating-star.svg" %> <%= rating %>
-                  </div>
+        <div class="card-global">
+          <!-- Recipe link (no nested <a> inside) -->
+          <%= link_to recipe, class: "text-decoration-none" do %>
+            <div class="relative">
+              <%= cl_image_tag recipe.photo.key, class: "img-cover" %>
+              <div class="absolute top-0 justify-content-end z-20 d-flex w-full smaller pt-2 pe-2">
+                <% rating = recipe.reviews.average(:rating).to_f.round(2) %>
+                <div class="badge_rating d-flex text-black <%= 'inactive--div' unless rating.positive? %>">
+                  <%= image_tag "icon/rating-star.svg" %> <%= rating %>
                 </div>
               </div>
+            </div>
 
-              <div class="small bold text-gray1 text-center mt-3"><%= recipe.name %></div>
+            <div class="small bold text-gray1 text-center mt-3"><%= recipe.name %></div>
 
-              <div class="d-flex justify-content-between align-items-center mt-3 pb-3 px-2">
-                <div class="global_time smaller text-gray3">
-                  Time <br>
-                  <span class="bold text-gray1"><%= recipe.time %></span>
-                </div>
-
-                <div class="d-flex h-full global_bookmark">
-                  <% favourite = Favourite.find_by(user: current_user, recipe: recipe) %>
-                  <% if favourite %>
-                    <%= link_to user_favourite_path(current_user, favourite), method: :delete, remote: true do %>
-                      <%= image_tag "icon/bookmark-active.svg", class: "icon" %>
-                    <% end %>
-                  <% else %>
-                    <%= link_to recipe_favourites_path(recipe), method: :post, remote: true do %>
-                      <%= image_tag "icon/bookmark.svg", class: "icon" %>
-                    <% end %>
-                  <% end %>
-                </div>
+            <div class="d-flex justify-content-between align-items-center mt-3 pb-3 px-2">
+              <div class="global_time smaller text-gray3">
+                Time <br>
+                <span class="bold text-gray1"><%= recipe.time %></span>
               </div>
-            <% end %>
+            </div>
+          <% end %>
+
+          <!-- Favourite button (outside the link) -->
+          <div class="d-flex h-full global_bookmark ms-auto d-flex align-items-center">
+            <%= render "favourites/button",
+                       recipe: recipe,
+                       favourite: Favourite.find_by(user: current_user, recipe: recipe) %>
           </div>
-        </li>
+        </div>
       <% end %>
     </ul>
 
@@ -96,29 +89,20 @@
                   </div>
                 </div>
               </div>
-
               <div class="small bold text-gray1 text-center mt-3"><%= recipe.name %></div>
-
               <div class="d-flex justify-content-between align-items-center mt-3 pb-3 px-2">
                 <div class="global_time smaller text-gray3">
                   Time <br>
                   <span class="bold text-gray1"><%= recipe.time %></span>
                 </div>
-
-                <div class="d-flex h-full global_bookmark">
-                  <% favourite = Favourite.find_by(user: current_user, recipe: recipe) %>
-                  <% if favourite %>
-                    <%= link_to user_favourite_path(current_user, favourite), method: :delete, remote: true do %>
-                      <%= image_tag "icon/bookmark-active.svg", class: "icon" %>
-                    <% end %>
-                  <% else %>
-                    <%= link_to recipe_favourites_path(recipe), method: :post, remote: true do %>
-                      <%= image_tag "icon/bookmark.svg", class: "icon" %>
-                    <% end %>
-                  <% end %>
-                </div>
               </div>
             <% end %>
+
+            <div class="d-flex h-full global_bookmark ms-auto d-flex align-items-center">
+              <%= render "favourites/button",
+                         recipe: recipe,
+                         favourite: Favourite.find_by(user: current_user, recipe: recipe) %>
+            </div>
           </div>
         </div>
       <% end %>
@@ -140,29 +124,20 @@
                   </div>
                 </div>
               </div>
-
               <div class="small bold text-gray1 text-center mt-3"><%= recipe.name %></div>
-
               <div class="d-flex justify-content-between align-items-center mt-3 pb-3 px-2">
                 <div class="global_time smaller text-gray3">
                   Time <br>
                   <span class="bold text-gray1"><%= recipe.time %></span>
                 </div>
-
-                <div class="d-flex h-full global_bookmark">
-                  <% favourite = Favourite.find_by(user: current_user, recipe: recipe) %>
-                  <% if favourite %>
-                    <%= link_to user_favourite_path(current_user, favourite), method: :delete, remote: true do %>
-                      <%= image_tag "icon/bookmark-active.svg", class: "icon" %>
-                    <% end %>
-                  <% else %>
-                    <%= link_to recipe_favourites_path(recipe), method: :post, remote: true do %>
-                      <%= image_tag "icon/bookmark.svg", class: "icon" %>
-                    <% end %>
-                  <% end %>
-                </div>
               </div>
             <% end %>
+
+            <div class="d-flex h-full global_bookmark ms-auto d-flex align-items-center">
+              <%= render "favourites/button",
+                         recipe: recipe,
+                         favourite: Favourite.find_by(user: current_user, recipe: recipe) %>
+            </div>
           </div>
         </div>
       <% end %>

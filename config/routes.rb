@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     collection do
       get :myrecipes
     end
-    resources :favourites, only: [:new, :create, :index]
+    resources :favourites, only: [:create, :destroy]
 
     resources :reviews, only: [ :new, :create, :index, :destroy ]
   end

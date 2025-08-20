@@ -1,4 +1,6 @@
 class FavouritesController < ApplicationController
+   before_action :set_recipe, only: [:create]
+   before_action :set_favourite, only: [:destroy]
 
 def index
 
@@ -21,7 +23,7 @@ def new
   authorize @recipe
 end
 
-def create
+ def create
   @recipe = Recipe.find(params[:recipe_id])
   @favourite = Favourite.new(user: current_user, recipe: @recipe)
   authorize @favourite
@@ -36,20 +38,35 @@ def create
   end
 end
 
-
 def destroy
-  puts "ESTE ES LA REQUEST #{request.headers["referer"]}"
   @favourite = Favourite.find(params[:id])
   authorize @favourite
-  #raise
+  @recipe = @favourite.recipe
   @favourite.destroy
-  if request.headers["referer"].include?("recipes/")
-    redirect_to recipe_path(@favourite.recipe_id)
-  elsif request.headers["referer"].include?("recipes")
-    redirect_to recipes_path
-  else
-    redirect_to user_favourites_path(current_user)
+  respond_to do |format|
+    format.html do
+      if request.headers["referer"].include?("recipes/")
+        redirect_to recipe_path(@recipe)
+      elsif request.headers["referer"].include?("recipes")
+        redirect_to recipes_path
+      else
+        redirect_to user_favourites_path(current_user)
+      end
+    end
+    format.turbo_stream
   end
-end
+
+  end
+
+  private
+
+  def set_recipe
+    @recipe = Recipe.find(params[:recipe_id])
+  end
+
+  def set_favourite
+    @favourite = Favourite.find(params[:id])
+  end
+
 
 end

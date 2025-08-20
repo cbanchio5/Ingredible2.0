@@ -13,12 +13,11 @@ import { application } from "./controllers/index"
 
 import "./controllers/index"
 
+
 // Start Stimulus
 window.Stimulus = Application.start()
 
-// Load all controllers in app/javascript/controllers
-//const context = require.context("./controllers", true, /\.js$/)
-//Stimulus.load(definitionsFromContext(context))
+
 
 console.log("✅ Stimulus + Bootstrap loaded")
 

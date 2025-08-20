@@ -1,0 +1,15 @@
+<%= turbo_frame_tag dom_id(recipe, :favourite) do %>
+  <% if favourite.present? %>
+    <%= link_to recipe_favourite_path(recipe, favourite),
+                data: { turbo_method: :delete },
+                title: "Remove from favourites" do %>
+      <%= image_tag "icon/bookmark-active.svg", class: "icon" %>
+    <% end %>
+  <% else %>
+    <%= link_to recipe_favourites_path(recipe),
+                data: { turbo_method: :post },
+                title: "Add to favourites" do %>
+      <%= image_tag "icon/bookmark.svg", class: "icon" %>
+    <% end %>
+  <% end %>
+<% end %>

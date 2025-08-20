@@ -2,3 +2,10 @@
 //= link_directory ../stylesheets .css
 //= link application.css
 //= link application.js
+//= link bootstrap.min.js
+//= link controllers/demo1_controller.js
+//= link controllers/demo_controller.js
+//= link controllers/modal_controller.js
+//= link controllers/modalcooking_controller.js
+//= link controllers/rating_controller.js
+//= link controllers/index.js
