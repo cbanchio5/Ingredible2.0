@@ -11,6 +11,7 @@ Rails.application.configure do
 
   config.assets.compile = false
   config.assets.digest = true
+  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present? || ENV['RENDER'].present?
 
 
   # Full error reports are disabled.
