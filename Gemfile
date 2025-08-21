@@ -44,7 +44,7 @@ gem 'devise'
 gem 'pg', '~> 1.5'
 gem 'faker'
 gem 'pg_search'
-gem 'turbo-rails'
+
 
 
 gem 'pundit'
