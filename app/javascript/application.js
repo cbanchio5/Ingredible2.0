@@ -1,7 +1,7 @@
 // app/javascript/application.js
 
 // --- Bootstrap ---
-//import "bootstrap"
+import "bootstrap"
 import "@hotwired/turbo-rails"
 
 // --- Stimulus setup ---
