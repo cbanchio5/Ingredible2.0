@@ -23,32 +23,63 @@
   <div class="dropdown d-flex flex-row align-items-center mb-3">
     <div class="small text-gray1 pe-1">Difficulty:</div>
     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-      <%= params[:difficulty].presence || "All" %>
+      All
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
       <% ["easy", "medium", "hard"].each do |level| %>
-        <li>
-          <%= link_to level,
-                      request.query_parameters.merge({difficulty: level}),
-                      class: "dropdown-item",
-                      data: { turbo_frame: "recipes_results" } %>
-        </li>
+        <li><%= link_to level, request.query_parameters.merge({difficulty: level}), class: "dropdown-item" %></li>
       <% end %>
     </ul>
   </div>
 
   <!-- INDEX SEARCH RESULTS -->
-  <%= turbo_frame_tag "recipes_results" do %>
-    <% if @search %>
-      <div class="header--result">
-        <h3 class="text-black"><%= @recipes.length %> results...</h3>
-      </div>
+  <% if @search %>
+    <div class="header--result">
+      <h3 class="text-black"><%= @recipes.length %> results...</h3>
+    </div>
 
-      <ul class="m-0 p-0 grid">
-        <% @recipes.each do |recipe| %>
-          <div class="card-global">
+    <ul class="m-0 p-0 grid">
+      <% @recipes.each do |recipe| %>
+        <div class="card-global">
+          <!-- Recipe link -->
+          <%= link_to recipe_path(recipe), class: "text-decoration-none d-block" do %>
+            <div class="relative">
+              <%= cl_image_tag recipe.photo.key, class: "img-cover" %>
+              <div class="absolute top-0 justify-content-end z-20 d-flex w-full smaller pt-2 pe-2">
+                <% rating = recipe.reviews.average(:rating).to_f.round(2) %>
+                <div class="badge_rating d-flex text-black <%= 'inactive--div' unless rating.positive? %>">
+                  <%= image_tag "icon/rating-star.svg" %> <%= rating %>
+                </div>
+              </div>
+            </div>
+
+            <div class="small bold text-gray1 text-center mt-3"><%= recipe.name %></div>
+          <% end %>
+
+          <!-- Time + favourite -->
+          <div class="d-flex justify-content-between align-items-center mt-3 pb-3 px-2 global_time">
+            <div class="smaller text-gray3">
+              Time <br>
+              <span class="bold text-gray1"><%= recipe.time %></span>
+            </div>
+            <div class="global_bookmark">
+              <%= render "favourites/button",
+                         recipe: recipe,
+                         favourite: Favourite.find_by(user: current_user, recipe: recipe) %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </ul>
+
+  <% else %>
+    <!-- CAROUSEL CARDS -->
+    <div class="row flex-row flex-nowrap overflow-scroll hide-scrollbar">
+      <% @recipes.first(6).each do |recipe| %>
+        <div class="col-6 col-sm-4">
+          <div class="card-slider relative w-full">
             <!-- Recipe link -->
-            <%= link_to recipe, class: "text-decoration-none" do %>
+            <%= link_to recipe_path(recipe), class: "text-decoration-none d-block" do %>
               <div class="relative">
                 <%= cl_image_tag recipe.photo.key, class: "img-cover" %>
                 <div class="absolute top-0 justify-content-end z-20 d-flex w-full smaller pt-2 pe-2">
@@ -58,139 +89,61 @@
                   </div>
                 </div>
               </div>
-
               <div class="small bold text-gray1 text-center mt-3"><%= recipe.name %></div>
             <% end %>
 
-            <!-- Time and Favourite button row -->
-            <div class="d-flex justify-content-between align-items-center mt-3 pb-3 px-2">
-              <div class="global_time smaller text-gray3">
+            <!-- Time + favourite -->
+            <div class="d-flex justify-content-between align-items-center mt-3 pb-3 px-2 global_time">
+              <div class="smaller text-gray3">
                 Time <br>
                 <span class="bold text-gray1"><%= recipe.time %></span>
               </div>
-
-              <div class="global_bookmark d-flex align-items-center ms-auto">
-                <%= turbo_frame_tag dom_id(recipe, :favourite) do %>
-                  <% favourite = Favourite.find_by(user: current_user, recipe: recipe) %>
-                  <% if favourite.present? %>
-                    <%= link_to recipe_favourite_path(recipe, favourite),
-                                data: { turbo_method: :delete },
-                                title: "Remove from favourites" do %>
-                      <%= image_tag "icon/bookmark-active.svg", class: "icon_button" %>
-                    <% end %>
-                  <% else %>
-                    <%= link_to recipe_favourites_path(recipe),
-                                data: { turbo_method: :post },
-                                title: "Add to favourites" do %>
-                      <%= image_tag "icon/bookmark.svg", class: "icon_button" %>
-                    <% end %>
-                  <% end %>
-                <% end %>
+              <div class="global_bookmark">
+                <%= render "favourites/button",
+                           recipe: recipe,
+                           favourite: Favourite.find_by(user: current_user, recipe: recipe) %>
               </div>
             </div>
           </div>
-        <% end %>
-      </ul>
+        </div>
+      <% end %>
+    </div>
 
-    <% else %>
-      <!-- CAROUSEL CARDS -->
-      <div class="row flex-row flex-nowrap overflow-scroll hide-scrollbar">
-        <% @recipes.first(6).each do |recipe| %>
-          <div class="col-6 col-sm-4">
-            <div class="card-slider relative w-full">
-              <%= link_to recipe, class: "text-decoration-none" do %>
-                <div class="relative">
-                  <%= cl_image_tag recipe.photo.key, class: "img-cover" %>
-                  <div class="absolute top-0 justify-content-end z-20 d-flex w-full smaller pt-2 pe-2">
-                    <% rating = recipe.reviews.average(:rating).to_f.round(2) %>
-                    <div class="badge_rating d-flex text-black <%= 'inactive--div' unless rating.positive? %>">
-                      <%= image_tag "icon/rating-star.svg" %> <%= rating %>
-                    </div>
+    <!-- RECOMMENDED RECIPES -->
+    <h1 class="normal bold text-black mt-3">5 recipes to make this week</h1>
+    <div class="row flex-row flex-nowrap overflow-scroll hide-scrollbar">
+      <% @recipes2.sample(6).each do |recipe| %>
+        <div class="col-12 col-lg-6">
+          <div class="card-slider relative w-full">
+            <!-- Recipe link -->
+            <%= link_to recipe_path(recipe), class: "text-decoration-none d-block" do %>
+              <div class="relative">
+                <%= cl_image_tag recipe.photo.key, class: "img-cover gradient--image" %>
+                <div class="absolute top-0 justify-content-end z-20 d-flex w-full smaller pt-2 pe-2">
+                  <% rating = recipe.reviews.average(:rating).to_f.round(2) %>
+                  <div class="badge_rating d-flex text-black <%= 'inactive--div' unless rating.positive? %>">
+                    <%= image_tag "icon/rating-star.svg" %> <%= rating %>
                   </div>
                 </div>
-                <div class="small bold text-gray1 text-center mt-3"><%= recipe.name %></div>
-              <% end %>
+              </div>
+              <div class="small bold text-gray1 text-center mt-3"><%= recipe.name %></div>
+            <% end %>
 
-              <!-- Time and Favourite button row -->
-              <div class="d-flex justify-content-between align-items-center mt-3 pb-3 px-2">
-                <div class="global_time smaller text-gray3">
-                  Time <br>
-                  <span class="bold text-gray1"><%= recipe.time %></span>
-                </div>
-
-                <div class="global_bookmark d-flex align-items-center ms-auto">
-                  <%= turbo_frame_tag dom_id(recipe, :favourite) do %>
-                    <% favourite = Favourite.find_by(user: current_user, recipe: recipe) %>
-                    <% if favourite.present? %>
-                      <%= link_to recipe_favourite_path(recipe, favourite),
-                                  data: { turbo_method: :delete },
-                                  title: "Remove from favourites" do %>
-                        <%= image_tag "icon/bookmark-active.svg", class: "icon_button" %>
-                      <% end %>
-                    <% else %>
-                      <%= link_to recipe_favourites_path(recipe),
-                                  data: { turbo_method: :post },
-                                  title: "Add to favourites" do %>
-                        <%= image_tag "icon/bookmark.svg", class: "icon_button" %>
-                      <% end %>
-                    <% end %>
-                  <% end %>
-                </div>
+            <!-- Time + favourite -->
+            <div class="d-flex justify-content-between align-items-center mt-3 pb-3 px-2 global_time">
+              <div class="smaller text-gray3">
+                Time <br>
+                <span class="bold text-gray1"><%= recipe.time %></span>
+              </div>
+              <div class="global_bookmark">
+                <%= render "favourites/button",
+                           recipe: recipe,
+                           favourite: Favourite.find_by(user: current_user, recipe: recipe) %>
               </div>
             </div>
           </div>
-        <% end %>
-      </div>
-
-      <!-- RECOMMENDED RECIPES -->
-      <h1 class="normal bold text-black mt-3">5 recipes to make this week</h1>
-      <div class="row flex-row flex-nowrap overflow-scroll hide-scrollbar">
-        <% @recipes2.sample(6).each do |recipe| %>
-          <div class="col-12 col-lg-6">
-            <div class="card-slider relative w-full">
-              <%= link_to recipe, class: "text-decoration-none" do %>
-                <div class="relative">
-                  <%= cl_image_tag recipe.photo.key, class: "img-cover gradient--image" %>
-                  <div class="absolute top-0 justify-content-end z-20 d-flex w-full smaller pt-2 pe-2">
-                    <% rating = recipe.reviews.average(:rating).to_f.round(2) %>
-                    <div class="badge_rating d-flex text-black <%= 'inactive--div' unless rating.positive? %>">
-                      <%= image_tag "icon/rating-star.svg" %> <%= rating %>
-                    </div>
-                  </div>
-                </div>
-                <div class="small bold text-gray1 text-center mt-3"><%= recipe.name %></div>
-              <% end %>
-
-              <!-- Time and Favourite button row -->
-              <div class="d-flex justify-content-between align-items-center mt-3 pb-3 px-2">
-                <div class="global_time smaller text-gray3">
-                  Time <br>
-                  <span class="bold text-gray1"><%= recipe.time %></span>
-                </div>
-
-                <div class="global_bookmark d-flex align-items-center ms-auto">
-                  <%= turbo_frame_tag dom_id(recipe, :favourite) do %>
-                    <% favourite = Favourite.find_by(user: current_user, recipe: recipe) %>
-                    <% if favourite.present? %>
-                      <%= link_to recipe_favourite_path(recipe, favourite),
-                                  data: { turbo_method: :delete },
-                                  title: "Remove from favourites" do %>
-                        <%= image_tag "icon/bookmark-active.svg", class: "icon_button" %>
-                      <% end %>
-                    <% else %>
-                      <%= link_to recipe_favourites_path(recipe),
-                                  data: { turbo_method: :post },
-                                  title: "Add to favourites" do %>
-                        <%= image_tag "icon/bookmark.svg", class: "icon_button" %>
-                      <% end %>
-                    <% end %>
-                  <% end %>
-                </div>
-              </div>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
+        </div>
+      <% end %>
+    </div>
   <% end %>
 </div>
