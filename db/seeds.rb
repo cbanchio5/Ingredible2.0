@@ -26,7 +26,7 @@ puts "Creating recipes..."
 filepath_recipes = 'db/recipes.json'
 recipes_data = JSON.parse(File.read(filepath_recipes))
 
-recipes_data.slice!(500, 20).each_with_index do |recipe, index|
+recipes_data.slice!(500, 50).each_with_index do |recipe, index|
   new_recipe = Recipe.new(
     name: recipe["Name"],
     ingredients: recipe["Ingredients"].join("-- "),
