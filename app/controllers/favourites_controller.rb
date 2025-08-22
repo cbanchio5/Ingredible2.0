@@ -31,7 +31,11 @@ end
   if @favourite.save
     respond_to do |format|
       format.html { redirect_back(fallback_location: recipe_path(@recipe), notice: "Added to favourites!") }
-      format.turbo_stream
+      if request.referer&.include?("recipes/#{@recipe.id}")
+        format.turbo_stream { render :create_show }
+      else
+        format.turbo_stream
+      end
     end
   else
     redirect_back(fallback_location: recipe_path(@recipe), alert: "Could not add to favourites.")
@@ -43,20 +47,24 @@ def destroy
   authorize @favourite
   @recipe = @favourite.recipe
   @favourite.destroy
+
   respond_to do |format|
     format.html do
-      if request.headers["referer"].include?("recipes/")
+      if request.referer&.include?("recipes/#{@recipe.id}")
         redirect_to recipe_path(@recipe)
-      elsif request.headers["referer"].include?("recipes")
+      elsif request.referer&.include?("recipes")
         redirect_to recipes_path
       else
         redirect_to user_favourites_path(current_user)
       end
     end
-    format.turbo_stream
+    if request.referer&.include?("recipes/#{@recipe.id}")
+      format.turbo_stream { render :destroy_show }
+    else
+      format.turbo_stream
+    end
   end
-
-  end
+end
 
   private
 

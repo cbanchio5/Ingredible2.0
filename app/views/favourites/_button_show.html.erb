@@ -1,0 +1,19 @@
+<turbo-frame id="bookmark_toggle_<%= recipe.id %>">
+  <div class="d-flex h-full global_bookmark align-items-center gap-1">
+    <% if favourite.present? %>
+      <%= link_to user_favourite_path(current_user, favourite),
+                  data: { turbo_method: :delete },
+                  class: "icon_button text-decoration-none d-flex align-items-center gap-1" do %>
+        <%= image_tag "icon/bookmark-active.svg", class: "icon" %>
+        <div class="small text-primary1">Saved</div>
+      <% end %>
+    <% else %>
+      <%= link_to recipe_favourites_path(recipe),
+                  data: { turbo_method: :post },
+                  class: "icon_button text-decoration-none d-flex align-items-center gap-1" do %>
+        <%= image_tag "icon/bookmark.svg", class: "icon" %>
+        <div class="small text-primary1">Save</div>
+      <% end %>
+    <% end %>
+  </div>
+</turbo-frame>
