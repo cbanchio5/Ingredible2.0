@@ -8,9 +8,9 @@
     <h3><%= @community.name  %></h3>
     <p> <%= @community.description  %></p>
     <% if @community.memberships.one? { |member| member.user_id == current_user.id && member.community_id == @community.id} %>
-     <%= button_to 'Enter',  community_messages_path(@community), method: :get, class:"btn btn-primary" %>
+     <%= button_to 'Enter',  community_messages_path(@community),class:"btn btn-primary" , method: :get %>
     <%else  %>
-      <%= link_to 'Join',  community_memberships_path(@community), method: :post, class:" btn btn-primary" %>
+      <%= link_to 'Join',  community_memberships_path(@community),class:"btn btn-primary", method: :post  %>
     <% end %>
   </div>
 

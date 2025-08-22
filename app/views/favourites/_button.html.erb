@@ -3,13 +3,13 @@
     <%= link_to recipe_favourite_path(recipe, favourite),
                 data: { turbo_method: :delete },
                 title: "Remove from favourites" do %>
-      <%= image_tag "icon/bookmark-active.svg", class: "icon" %>
+      <%= image_tag "icon/bookmark-active.svg", class: "icon_button" %>
     <% end %>
   <% else %>
     <%= link_to recipe_favourites_path(recipe),
                 data: { turbo_method: :post },
                 title: "Add to favourites" do %>
-      <%= image_tag "icon/bookmark.svg", class: "icon" %>
+      <%= image_tag "icon/bookmark.svg", class: "icon_button" %>
     <% end %>
   <% end %>
 <% end %>

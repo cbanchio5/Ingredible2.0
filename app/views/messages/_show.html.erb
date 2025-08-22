@@ -27,9 +27,12 @@
         <%= message.content %>
     </p>
     <% if policy(message).destroy?%>
-      <%= link_to  message_path(message), class:"danger-text mx-2", method: :delete, remote: true do %>
-        <i class="fas fa-times"></i>
-      <% end %>
+      <%= link_to message_path(message),
+            class: "danger-text mx-2",
+            data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
+            <i class="fas fa-times"></i>
+        <% end %>
+
     <% end %>
   </div>
 <% end %>

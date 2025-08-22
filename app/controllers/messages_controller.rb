@@ -19,7 +19,6 @@ class MessagesController < ApplicationController
   end
 
   def new
-    # we need @restaurant in our `simple_form_for`
     @message = Message.new
     authorize @message
     authorize @community
@@ -52,6 +51,6 @@ class MessagesController < ApplicationController
   end
 
   def message_params
-    params.require(:message).permit(:message)
+    params.require(:message).permit(:content)
   end
 end

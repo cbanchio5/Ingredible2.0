@@ -24,11 +24,12 @@
                 <%= review.body %>
                 <%= ("⭐️" * review.rating )  %>
             </p>
-            <% if policy(review).destroy?%>
-              <%= link_to  recipe_review_path(@recipe, review), class:"danger-text mx-2", method: :delete, remote: true do %>
+            <% if policy(review).destroy? %>
+                <%= link_to recipe_review_path(@recipe, review), class: "danger-text mx-2", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
                 <i class="fas fa-times"></i>
+                <% end %>
               <% end %>
-            <% end %>
+
           </div>
 
       <% end %>
