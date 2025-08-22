@@ -25,7 +25,7 @@ class MembershipsController < ApplicationController
     #relationship does not exist
     if  @membership.save
       ##Create a message for the Message policy to work
-      @welcome_message = Message.create(user_id: current_user.id, community_id: @community.id, message:"Hello!")
+      @welcome_message = Message.create(user_id: current_user.id, community_id: @community.id, content:"Hello!")
       redirect_to community_messages_path(@community)
     else
       redirect_to communities_path, notice: "You already joined this community"

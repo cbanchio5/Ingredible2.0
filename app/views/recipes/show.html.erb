@@ -274,7 +274,7 @@
 
             <%= ("⭐️" * review.rating )  %>
             <% if policy(review).destroy?%>
-              <%= link_to  recipe_review_path(@recipe, review), class:"danger-text mx-2", method: :delete, remote: true do %>
+               <%= link_to recipe_review_path(@recipe, review), class: "danger-text mx-2", data: { turbo_method: :delete } do %>
                 <i class="fas fa-times"></i>
               <% end %>
             <% end %>
@@ -295,6 +295,6 @@
 
 <div class = "d-flex justify-content-start mx-3 mb-4">
    <% if policy(@recipe).destroy? %>
-    <%= link_to "Delete Recipe", @recipe, method: :delete, data: { confirm: 'Are you sure?' }, class:"text-danger decoration--none py-3 ps-0"%>
+    <%= link_to "Delete Recipe", @recipe, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class:"text-danger decoration--none py-3 ps-0"%>
    <% end %>
 </div>

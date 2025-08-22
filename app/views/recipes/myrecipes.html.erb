@@ -1,38 +1,52 @@
 <div class="container">
   <h1 class="text-black mt-3 letter--space">Your Recipes</h1>
-    <% if @recipes.length === 0 %>
-      <h4 class="text-gray3 letter--space">You haven't created any recipes yet!</h4>
-      <%= image_tag "background-images/no_communities.jpg", class: "d-flex w-50 border--round my-3"  %>
-      <%= link_to "Create your first recipe", new_recipe_path, class: "decoration--none mb-3" %>
-    <% else %>
+
+  <% if @recipes.empty? %>
+    <h4 class="text-gray3 letter--space">You haven't created any recipes yet!</h4>
+    <%= image_tag "background-images/no_communities.jpg", class: "d-flex w-50 border--round my-3" %>
+    <%= link_to "Create your first recipe", new_recipe_path, class: "decoration--none mb-3" %>
+  <% else %>
     <div class="container--favorite my-4">
       <% @recipes.each do |recipe| %>
-        <div class="card--favorite m-3" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.8)), url('<%= cl_image_path recipe.photo.key, height: 300 %>')">
-          <div class="title--card">
-            <div class="bookmark mx-3">
-              <% favourite = Favourite.find_by(user:current_user, recipe:recipe)  %>
-              <%if favourite %>
-                      <%= link_to user_favourite_path(current_user, favourite), remote: true, method: :delete do%>
-                        <%= image_tag "icon/bookmark-active.svg", class: "icon" %>
-                      <% end %>
-                    <% else %>
-                      <%= link_to recipe_favourites_path(recipe), class: "icon_button", remote: true, method: :post do %>
-                        <%= image_tag "icon/bookmark.svg", class: "icon" %>
-                      <% end %>
+        <% favourite = Favourite.find_by(user: current_user, recipe: recipe) %>
+
+        <%= turbo_frame_tag dom_id(recipe, :favourite_card) do %>
+          <div class="card--favorite m-3" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.8)), url('<%= cl_image_path recipe.photo.key, height: 300 %>')">
+            <div class="title--card">
+              <div class="bookmark mx-3">
+                <%= turbo_frame_tag dom_id(recipe, :favourite) do %>
+                  <% if favourite %>
+                    <%= link_to user_favourite_path(current_user, favourite),
+                                data: { turbo_method: :delete },
+                                remote: true,
+                                title: "Remove from favourites" do %>
+                      <%= image_tag "icon/bookmark-active.svg", class: "icon_button" %>
                     <% end %>
+                  <% else %>
+                    <%= link_to recipe_favourites_path(recipe),
+                                data: { turbo_method: :post },
+                                remote: true,
+                                title: "Add to favourites" do %>
+                      <%= image_tag "icon/bookmark.svg", class: "icon_button" %>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </div>
+
+              <div class="badge_rating d-flex text-black m-2">
+                <%= image_tag "icon/rating-star.svg" %> <%= recipe.reviews.average(:rating).to_f.round(2) %>
+              </div>
             </div>
-            <div class="badge_rating d-flex text-black m-2">
-              <%= image_tag "icon/rating-star.svg" %> <%= recipe.reviews.average(:rating).to_f.round(2)  %>
+
+            <div class="card--favorite--data">
+              <%= link_to recipe_path(recipe), class: "text-decoration-none" do %>
+                <h3 class="text-white favorite--title m-3"><%= recipe.name %></h3>
+              <% end %>
+              <p class="m-3"><i class="fas fa-clock"></i> <%= recipe.time %></p>
             </div>
           </div>
-          <div class="card--favorite--data">
-            <%= link_to recipe_path(recipe), class:"text-decoration-none" do%>
-              <h3 class="text-white favorite--title m-3"><%= recipe.name  %></h3>
-            <% end %>
-            <p class="m-3"><i class="fas fa-clock"></i> <%= recipe.time  %></p>
-          </div>
-        </div>
+        <% end %>
       <% end %>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>
