@@ -45,7 +45,7 @@ gem "thruster", require: false
 # gem "image_processing", "~> 1.2"
 
 gem 'devise'
-gem 'pg', '~> 1.5'
+gem 'pg', '~> 1.6'
 gem 'faker'
 gem 'pg_search'
 
